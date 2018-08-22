@@ -16,4 +16,4 @@ commands:
     permission-message: "§cVocê não tem permissão para utilizar este comando."
   changepassword:
     description: Altera a senha cadastrada.
-    aliases: [trocarasenha]
+    aliases: [trocarsenha]

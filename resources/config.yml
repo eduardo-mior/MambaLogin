@@ -1,0 +1,24 @@
+# Se você estiver usando algum Plugin que envia um title quando 
+# o player loga no servidor você deve desativar o title ou remove-lo!
+TitleRegistrar: "&a&lRede Mamba"
+SubtitleRegistrar: "&fDigite /register <senha>"
+ExcedeuLimiteRegistrar: "&cVocê excedeu o tempo limite para efetuar seu registro."
+
+MensagemRegistrado: |
+  &a
+  &aRegistro efetuado com sucesso!
+  &e&lDICA: &eCaso queira trocar de senha use /trocarsenha
+
+# Se você estiver usando algum Plugin que envia um title quando 
+# o player loga no servidor você deve desativar o title ou remove-lo!
+TitleLogar: "&a&lRede Mamba"
+SubtitleLogar: "&fDigite /login <senha>"
+ExcedeuLimiteLogar: "&cVocê excedeu o tempo limite para efetuar seu login."
+
+TitleRegistrado: "&a&lREGISTRADO COM SUCESSO"
+SubtitleRegistrado: "&f&lSeja bem-vindo!"
+TitleLogado: "&a&lAUTENTICADO COM SUCESSO"
+SubtitleLogado: "&fSeja bem-vindo de volta!"
+
+TempoParaLogin: 60 #segundos
+TentativasParaLogin: 3

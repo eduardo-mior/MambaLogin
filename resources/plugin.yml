@@ -1,0 +1,19 @@
+main: rush.login.Main
+version: 1.0
+name: Login
+
+commands:
+  login:
+    description: Efetua o login no servidor.
+    aliases: []
+  register:
+    description: Efetua o cadastro no servidor.
+    aliases: []
+  unregister:
+    description: Deleta um player do banco de dados
+    aliases: [desregistrar]
+    permission: login.admin
+    permission-message: "§cVocê não tem permissão para utilizar este comando."
+  changepassword:
+    description: Altera a senha cadastrada.
+    aliases: [trocarasenha]

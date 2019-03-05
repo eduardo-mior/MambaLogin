@@ -37,4 +37,5 @@ public class JoinTask extends Login {
 			}
 		}.runTaskLater(Main.get(), TempoParaLogin);
 	}
+	
 }

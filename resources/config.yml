@@ -1,3 +1,5 @@
+file-version: 1
+
 # Se você estiver usando algum Plugin que envia um title quando 
 # o player loga no servidor você deve desativar o title ou remove-lo!
 TitleRegistrar: "&a&lRede Mamba"

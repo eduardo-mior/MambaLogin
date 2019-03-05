@@ -24,8 +24,8 @@ public class Config {
 		TitleLogado = config.getString("TitleLogado").replace('&', '§');
 		SubtitleLogado = config.getString("SubtitleLogado").replace('&', '§');
 		MensagemRegistrado = config.getString("MensagemRegistrado").replace('&', '§');
-		TempoParaLogin = (config.getInt("TempoParaLogin") * 20);
-		TentativasParaLogin = (config.getInt("TentativasParaLogin") - 1);
+		TempoParaLogin = config.getInt("TempoParaLogin") * 20;
+		TentativasParaLogin = config.getInt("TentativasParaLogin") - 1;
 	}
 	
 }

@@ -2,10 +2,10 @@ package rush.login;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import fr.xephi.authme.output.OnStartupTasks;
 import rush.login.commands.CommandChangePassword;
 import rush.login.commands.CommandLogin;
 import rush.login.commands.CommandRegister;
@@ -15,22 +15,33 @@ import rush.login.listener.PlayerData;
 import rush.login.listener.PlayerLogin;
 import rush.login.listener.PlayerPreLogin;
 import rush.login.utils.DataManager;
+import rush.login.utils.ReflectionUtils;
+import rush.login.utils.TitleAPI;
 
-public class Main extends JavaPlugin implements Listener {
+public class Main extends JavaPlugin {
 
 	private static Main main;
 
+	@Override
 	public void onEnable() {
-		main = this;
+		OnStartupTasks.setupConsoleFilter(getLogger());
+		carregarUtilidades();
 		registrarComandos();
 		registrarEventos();
 		gerarConfigs();
 	}
 
+	@Override
 	public void onDisable() {
-		HandlerList.unregisterAll((Listener) this);
+		HandlerList.unregisterAll(this);
 	}
-
+	
+	private void carregarUtilidades() {
+		main = this;
+		ReflectionUtils.loadUtils();
+		TitleAPI.loadAPI();
+	}
+	
 	private void gerarConfigs() {
 		DataManager.createFolder("playerdata");
 		saveDefaultConfig();

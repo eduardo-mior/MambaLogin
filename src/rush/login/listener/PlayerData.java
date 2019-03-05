@@ -1,8 +1,8 @@
 package rush.login.listener;
 
 import java.io.File;
-import java.io.IOException;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -11,7 +11,6 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 
 import rush.login.utils.DataManager;
-import rush.login.utils.Logger;
 
 public class PlayerData implements Listener {
 
@@ -21,7 +20,7 @@ public class PlayerData implements Listener {
 		File file = DataManager.getFile(NewPlayer.toLowerCase(), "playerdata");
 		FileConfiguration config = DataManager.getConfig(file);
 
-		if (file.exists()) {
+        if (file.exists() && file.length() > 10) {
 			String OldPlayer = config.getString("Nick");
 			if (!NewPlayer.equals(OldPlayer)) {
 				e.setKickMessage("§cO nick '" + NewPlayer
@@ -37,8 +36,9 @@ public class PlayerData implements Listener {
 			config.set("Registrado", false);
 			try {
 				config.save(file);
-			} catch (IOException ex) {
-				Logger.error("Nao foi possivel criar o arquivo " + file.getName() + "!");
+			} catch (Throwable ex) {
+				Bukkit.getConsoleSender().sendMessage("§c[Login] Nao foi possivel criar o arquivo " + file.getName() + "!");
+				ex.printStackTrace();
 			}
 		}
 	}

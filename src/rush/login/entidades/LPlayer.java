@@ -3,11 +3,11 @@ package rush.login.entidades;
 import java.io.File;
 import java.io.IOException;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import rush.login.utils.DataManager;
-import rush.login.utils.Logger;
 
 public class LPlayer {
 
@@ -22,8 +22,10 @@ public class LPlayer {
 	public static LPlayer get(String player) {
 		return new LPlayer(player.toLowerCase());
 	}
+	
+	private LPlayer() {}
 
-	public LPlayer(String player) {
+	private LPlayer(String player) {
 		FileConfiguration lpConfig = getlpConfig(player);
 		this.pass = lpConfig.getString("Senha");
 		this.nick = lpConfig.getString("Nick");
@@ -56,7 +58,7 @@ public class LPlayer {
 		try {
 			lpConfig.save(lpFile);
 		} catch (IOException e) {
-			Logger.error("Nao foi possivel salvar o Valor !" + value + " na Key " + key + " no arquivo" + lpFile.getName() + "!");
+			Bukkit.getConsoleSender().sendMessage("§c[Login] Nao foi possivel salvar o Valor !" + value + " na Key " + key + " no arquivo" + lpFile.getName() + "!");
 			e.printStackTrace();
 		}
 	}

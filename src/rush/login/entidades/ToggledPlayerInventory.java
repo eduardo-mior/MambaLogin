@@ -15,12 +15,12 @@ public class ToggledPlayerInventory {
 	
 	public ToggledPlayerInventory(Player p) {
 		PlayerInventory inv = p.getInventory();
-		this.setPlayer(p);
 		this.contents = inv.getContents();
 		this.helmet = inv.getHelmet();
 		this.chestplate = inv.getChestplate();
 		this.leggings = inv.getLeggings();
 		this.boots = inv.getBoots();
+		this.player = p;
 		this.clearInventory(inv);
 	}
 
@@ -124,4 +124,5 @@ public class ToggledPlayerInventory {
 		inv.setLeggings(leggings);
 		inv.setBoots(boots);
 	}
+	
 }

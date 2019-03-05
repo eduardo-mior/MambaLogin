@@ -1,8 +1,8 @@
 package rush.login.utils;
 
 import java.io.File;
-import java.io.IOException;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -16,16 +16,18 @@ public class DataManager {
 			if (!pasta.exists()) {
 				pasta.mkdirs();
 			}
-		} catch (SecurityException e) {
-			Logger.error("Nao foi possivel criar a pasta" + folder + "!");
+		} catch (Throwable e) {
+			Bukkit.getConsoleSender().sendMessage("§c[Login] Nao foi possivel criar a pasta" + folder + "!");
+			e.printStackTrace();
 		}
 	}
 
 	public static void createFile(File file) {
 		try {
 			file.createNewFile();
-		} catch (IOException e) {
-			Logger.error("Nao foi possivel criar o arquivo " + file.getName() + "!");
+		} catch (Throwable e) {
+			Bukkit.getConsoleSender().sendMessage("§c[Login] Nao foi possivel criar o arquivo " + file.getName() + "!");
+			e.printStackTrace();
 		}
 	}
 

@@ -3,12 +3,11 @@ version: 1.0
 name: Login
 
 commands:
+  # Não adicione novas aliases nos comandos!!!!
   login:
-    description: Efetua o login no servidor.
-    aliases: []
+    description: Efetua o login no servidor.]
   register:
     description: Efetua o cadastro no servidor.
-    aliases: []
   unregister:
     description: Deleta um player do banco de dados
     aliases: [desregistrar]

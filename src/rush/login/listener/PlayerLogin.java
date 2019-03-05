@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -16,7 +17,7 @@ import rush.login.task.JoinTask;
 
 public class PlayerLogin extends Login implements Listener {
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.MONITOR) 
 	public void onLogin(PlayerJoinEvent e) {
 		Player player = e.getPlayer();
 		LPlayer sp = LPlayer.get(player);
@@ -61,4 +62,14 @@ public class PlayerLogin extends Login implements Listener {
 			INVS.get(e.getPlayer()).devolverItens();
 		}
 	}
+	
+	@EventHandler (priority = EventPriority.HIGHEST, ignoreCancelled = true) 
+	public void onDamage(EntityDamageEvent e) {
+		if (e.getEntity() instanceof Player) {
+			if (BLOCK.contains(e.getEntity())) {
+				e.setCancelled(true);
+			}
+		}
+	}
+	
 }

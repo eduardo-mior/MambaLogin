@@ -52,8 +52,8 @@ public class Login extends Config {
 		INVS.remove(player);
 		BLOCK.remove(player);
 		player.setWalkSpeed(0.2f);
-		player.setAllowFlight(false);
 		player.setFlying(false);
+		player.setAllowFlight(false);
 		player.setGameMode(GameMode.SURVIVAL);
 	}
 

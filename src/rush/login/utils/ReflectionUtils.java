@@ -1,6 +1,7 @@
 package rush.login.utils;
 
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -13,31 +14,39 @@ import org.bukkit.entity.Player;
 
 public class ReflectionUtils {
 	
-   	public static Class<?> getNMSClass(String name) {
-   		String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-   		try {
-   			return Class.forName("net.minecraft.server." + version + "." + name);
-   		} catch (ClassNotFoundException e) {
-   			return null;
-   		}
+	private static final String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+	private static Method getHandle;
+	private static Method sendPacket;
+	private static Field playerConnectionField;
+	
+	public static void loadUtils() {
+		try 
+		{
+			getHandle = getOBClass("entity.CraftPlayer").getMethod("getHandle");
+			playerConnectionField = getNMSClass("EntityPlayer").getField("playerConnection");
+			sendPacket = getNMSClass("PlayerConnection").getMethod("sendPacket", getNMSClass("Packet"));
+		}
+		catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+	
+   	public static Class<?> getNMSClass(String name) throws ClassNotFoundException {
+   		return Class.forName("net.minecraft.server." + version + "." + name);
    	}
    	
-   	public static Class<?> getOBClass(String name) {
-   		String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-   		try {
-   			return Class.forName("org.bukkit.craftbukkit." + version + "." + name);
-   		} catch (ClassNotFoundException e) {
-   			return null;
-   		}
+   	public static Class<?> getOBClass(String name) throws ClassNotFoundException {
+   		return Class.forName("org.bukkit.craftbukkit." + version + "." + name);
    	}
    	
    	public static void sendPacket(Player player, Object packet) {
    		try {
-   			Object entityPlayer = player.getClass().getMethod("getHandle").invoke(player);
-   			Object playerConnection = entityPlayer.getClass().getField("playerConnection").get(entityPlayer);
-   			playerConnection.getClass().getMethod("sendPacket", ReflectionUtils.getNMSClass("Packet")).invoke(playerConnection, packet);
-   		} catch (SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | NoSuchFieldException e) {
-   			return;
+   			Object entityPlayer = getHandle.invoke(player);
+   			Object playerConnection = playerConnectionField.get(entityPlayer);
+   			sendPacket.invoke(playerConnection, packet);
+   		} catch (Throwable e) {
+   			e.printStackTrace();
    		}
    	}
+   	
 }

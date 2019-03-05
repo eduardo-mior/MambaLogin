@@ -1,11 +1,11 @@
 main: rush.login.Main
-version: 1.0
+version: 2.0
 name: Login
 
 commands:
   # Não adicione novas aliases nos comandos!!!!
   login:
-    description: Efetua o login no servidor.]
+    description: Efetua o login no servidor.
   register:
     description: Efetua o cadastro no servidor.
   unregister:

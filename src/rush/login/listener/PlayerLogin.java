@@ -1,5 +1,6 @@
 package rush.login.listener;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -7,8 +8,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import rush.login.entidades.LPlayer;
@@ -31,8 +34,17 @@ public class PlayerLogin extends Login implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true) 
 	public void onMove(PlayerMoveEvent e) {
 		if (BLOCK.contains(e.getPlayer())) {
-			e.getPlayer().teleport(e.getFrom());
+			if (!isSameBlock(e.getTo(), e.getFrom())) {
+				e.getPlayer().teleport(e.getFrom());
+			}
 		}
+	}
+	
+	private boolean isSameBlock(Location one, Location two) {
+		return 	one.getBlockX() == two.getBlockX() && 
+				one.getBlockZ() == two.getBlockZ() && 
+				one.getBlockY() == two.getBlockY() && 
+				one.getWorld().equals(two.getWorld());
 	}
 	
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -67,8 +79,23 @@ public class PlayerLogin extends Login implements Listener {
 	public void onDamage(EntityDamageEvent e) {
 		if (e.getEntity() instanceof Player) {
 			if (BLOCK.contains(e.getEntity())) {
+				e.setDamage(0);
 				e.setCancelled(true);
 			}
+		}
+	}
+	
+	@EventHandler (priority = EventPriority.HIGHEST, ignoreCancelled = true) 
+	public void onPickup(PlayerPickupItemEvent e) {
+		if (BLOCK.contains(e.getPlayer())) {
+			e.setCancelled(true);
+		}
+	}
+	
+	@EventHandler (priority = EventPriority.HIGHEST, ignoreCancelled = true) 
+	public void onPickup(PlayerInteractEvent e) {
+		if (BLOCK.contains(e.getPlayer())) {
+			e.setCancelled(true);
 		}
 	}
 	

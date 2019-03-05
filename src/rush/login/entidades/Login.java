@@ -43,6 +43,7 @@ public class Login extends Config {
 		player.setWalkSpeed(0.0f);
 		player.setAllowFlight(true);
 		player.setFlying(true);
+		player.setCanPickupItems(false);
 		player.setGameMode(GameMode.ADVENTURE);
 	}
 	
@@ -54,6 +55,7 @@ public class Login extends Config {
 		player.setWalkSpeed(0.2f);
 		player.setFlying(false);
 		player.setAllowFlight(false);
+		player.setCanPickupItems(true);
 		player.setGameMode(GameMode.SURVIVAL);
 	}
 
